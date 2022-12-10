@@ -1,66 +1,34 @@
 import React from "react"
-import { Button, Input, InputContainer } from "./styles/Input"
-import axios from "axios"
-import ResultContainer from "./ResultContainer"
-import Global from "./styles/Global"
-import Header from "./styles/Header"
 
-const searchEndPoint = (type, search) => {
-  return `http://openlibrary.org/search.json?${type}=${search}&availability&limit=8`
-}
+import { Container } from "./styles/ContainerStyled"
+import Global from "./styles/GlobalStyled"
+import Header from "./styles/HeaderStyled"
+import Book from "./Book"
+import Form from "./Form"
+import ItemBook from "./ItemBook"
+import { BrowserRouter } from "react-router-dom"
+import { Routes } from "react-router-dom"
+import { Route } from "react-router-dom"
 
 const App = () => {
-  const [search, setSearch] = React.useState("")
   const [result, setResult] = React.useState(null)
-  const [typeSearch, setTypeSearch] = React.useState("")
-
-  const handleInput = ({ target }) => {
-    setSearch(target.value)
-  }
-
-  const handleSelect = ({ target }) => {
-    setTypeSearch(target.value)
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    console.log(search, typeSearch)
-    if (!search) return
-
-    const response = await axios
-      .get(searchEndPoint(typeSearch, search))
-      .then((response) => response.data.docs)
-
-    // coverEndPoint(doc.cover_edition_key)
-
-    setResult(response)
-    console.log(response)
-  }
 
   return (
-    <div>
+    <BrowserRouter>
       <Global />
       <Header>
-        <h1>Find Books</h1>
+        <a href="./">
+          <h1>Find Books</h1>
+        </a>
       </Header>
-      <InputContainer onSubmit={handleSubmit}>
-        <Input
-          placeholder="Pesquise um livro"
-          value={search}
-          onChange={handleInput}
-        />
-        <select name="" id="" onChange={handleSelect}>
-          <option disabled value="">
-            selecione
-          </option>
-          <option value="author">Autor</option>
-          <option value="title">Livro</option>
-        </select>
-        <Button>Procurar</Button>
-      </InputContainer>
-      {result && <ResultContainer results={result} />}
-    </div>
+      <Container>
+        <Form setResult={setResult} />
+        <Routes>
+          <Route path="/" element={<Book results={result} />} />
+          <Route path="/:id" element={<ItemBook />} />
+        </Routes>
+      </Container>
+    </BrowserRouter>
   )
 }
 
