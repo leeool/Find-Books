@@ -26,6 +26,9 @@ const Button = styled.button`
   display: inline-block;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+  background-color: #4464ad;
+  color: white;
+  width: 150px;
 
   &:hover {
     background-color: #5876bd;
@@ -37,12 +40,6 @@ const InputContainer = styled.form`
   justify-content: center;
   margin: 2rem 0;
   justify-content: center;
-
-  Button {
-    background-color: #4464ad;
-    color: white;
-    width: 150px;
-  }
 `
 
 export { Input, Button, InputContainer }

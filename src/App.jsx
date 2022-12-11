@@ -2,13 +2,13 @@ import React from "react"
 
 import { Container } from "./styles/ContainerStyled"
 import Global from "./styles/GlobalStyled"
-import Header from "./styles/HeaderStyled"
 import Book from "./Book"
 import Form from "./Form"
 import ItemBook from "./ItemBook"
 import { BrowserRouter } from "react-router-dom"
 import { Routes } from "react-router-dom"
 import { Route } from "react-router-dom"
+import Header from "./components/Header"
 
 const App = () => {
   const [result, setResult] = React.useState(null)
@@ -16,11 +16,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Global />
-      <Header>
-        <a href="./">
-          <h1>Find Books</h1>
-        </a>
-      </Header>
+      <Header />
       <Container>
         <Form setResult={setResult} />
         <Routes>
